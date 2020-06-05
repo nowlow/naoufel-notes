@@ -7,7 +7,7 @@ import { HttpLink } from 'apollo-link-http'
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'http://localhost:4000/'
+  uri: 'https://apollo.naoufel.space/'
 });
 
 const client = new ApolloClient({
@@ -46,6 +46,7 @@ class Notes extends React.Component {
             }
             `
         })
+	console.log('Articles', articles.data.getNotes)
         this.setState({ data: articles.data.getNotes, isMounted: true })
     }
 
@@ -54,6 +55,7 @@ class Notes extends React.Component {
     }
 
     render() {
+	console.log('HERE')
         if (this.state.isMounted) {
             return(
                 <Page_>
