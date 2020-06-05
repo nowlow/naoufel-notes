@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
+const responsiveHeight = '1020'
+const responsiveWidth = '1000'
+
 const HeaderComponent = styled.section`
     width: 100%;
     height: 100px;
@@ -27,12 +30,16 @@ const HeaderComponent = styled.section`
         text-decoration: none;
     }
 
-    @media screen and (max-width: 1000px) and (min-height: 1920px) {
+    @media screen and (max-width: ${responsiveWidth}px) and (min-height: ${responsiveHeight}px) {
         height: 250px;
         font-size: 3em;
 
         h1::before {
             content: 'NN';
+        }
+
+        .new-note {
+            padding: 20px;
         }
     }
 `
@@ -65,7 +72,7 @@ const ArticleComponent = styled.section`
         width: 80%;
     }
 
-    @media screen and (max-width: 1000px) and (min-height: 1920px) {
+    @media screen and (max-width: ${responsiveWidth}px) and (min-height: ${responsiveHeight}px) {
         font-size: 4em;
 
         h3 {
@@ -97,7 +104,7 @@ const Page = styled.section`
         margin: 10px;
     }
 
-    @media screen and (max-width: 1000px) and (min-height: 1920px) {
+    @media screen and (max-width: ${responsiveWidth}px) and (min-height: ${responsiveHeight}px) {
         margin-top: 250px;
         min-height: calc(100vh - 250px);
     }
