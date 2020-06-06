@@ -11,8 +11,8 @@ const Content_ = styled.section`
     box-sizing: border-box;
 
     @media screen and (max-width: ${responsive.width}px) and (min-height: ${responsive.height}px) {
-        margin-top: 200px;
-        min-height: calc(100vh - 200px);
+        margin-top: 150px;
+        min-height: calc(100vh - 150px);
     }
 `
 

@@ -4,6 +4,7 @@ import Article from '../../components/pages/Article'
 import { ApolloClient, gql } from 'apollo-boost'
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
+import responsive from '../../responsive'
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
@@ -22,8 +23,14 @@ const Page_ = styled.section`
     align-items: center;
     box-sizing: border-box;
 
-    > * {
+    > *:not(:last-child) {
         margin-bottom: 10px;
+    }
+
+    @media screen and (max-width: ${responsive.width}px) and (min-height: ${responsive.height}px) {
+        > *:not(:last-child) {
+            margin-bottom: 30px;
+        }
     }
 `
 
@@ -46,8 +53,7 @@ class Notes extends React.Component {
             }
             `
         })
-	console.log('Articles', articles.data.getNotes)
-        this.setState({ data: articles.data.getNotes, isMounted: true })
+	this.setState({ data: articles.data.getNotes.reverse(), isMounted: true })
     }
 
     componentDidCatch(error, errorInfo) {
@@ -55,7 +61,6 @@ class Notes extends React.Component {
     }
 
     render() {
-	console.log('HERE')
         if (this.state.isMounted) {
             return(
                 <Page_>

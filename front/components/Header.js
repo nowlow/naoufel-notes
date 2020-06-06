@@ -29,7 +29,7 @@ const Header_ = styled.section`
     }
 
     @media screen and (max-width: ${responsive.width}px) and (min-height: ${responsive.height}px) {
-        height: 200px;
+        height: 150px;
         font-size: 3em;
 
         h1::before {
@@ -37,6 +37,7 @@ const Header_ = styled.section`
         }
 
         .new-note {
+	    font-size: 0.6em;
             padding: 20px;
             border: 3px solid white;
             border-radius: 10px;

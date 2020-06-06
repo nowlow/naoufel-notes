@@ -29,14 +29,15 @@ h3 {
 @media screen and (max-width: ${responsive.width}px) and (min-height: ${responsive.height}px) {
     width: 100%;
     padding: 40px;
+    border-radius: 10px;
 
     h3 {
-        font-size: 4em;
+        font-size: 3em;
         margin-bottom: 30px;
     }
 
     p {
-        font-size: 3em;
+        font-size: 2.2em;
     }
 
     .date {
