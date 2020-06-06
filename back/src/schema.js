@@ -69,7 +69,7 @@ const Mutation = objectType({
             })
         },
         resolve: async function (parent, { title, content }, ctx, info) {
-            let note = await prisma.note.create({
+	    let note = await prisma.note.create({
                 data: {
                     title: title,
                     content: content
