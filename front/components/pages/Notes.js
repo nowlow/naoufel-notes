@@ -31,6 +31,8 @@ class Notes extends React.Component {
 
     async componentDidMount() {
 	console.log('COMPONENT DID MOUNT')
+	document.title = 'Naoufel\'s notes'
+	
         let articles = await NotesApollo().getInstance().query({
         query: gql`
             {

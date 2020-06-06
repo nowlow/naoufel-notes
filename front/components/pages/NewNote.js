@@ -20,6 +20,8 @@ const Page_ = styled.section`
         display: flex;
         flex-direction: column;
 
+        transition: width .2s;
+
         margin: 0 auto;
     }
 
@@ -93,6 +95,10 @@ class NewNote extends React.Component {
         this.state = { title: '', content: '' }
     }
 
+    componentDidMount() {
+	document.title = 'New note - Naoufel\'s notes'
+    }
+
     handleTypingTitle(event) {
         this.setState({ title: event.target.value })
     }
@@ -107,7 +113,7 @@ class NewNote extends React.Component {
         await NotesApollo().getInstance().mutate({
             mutation: gql`
                 mutation {
-                    addNote(title: "${this.state.title}", content: "${this.state.content}") {id}
+                    addNote(title: "${this.state.title}", content: "${this.state.content.split('"').join('\\"')}") {id}
                 }
             `,
         })
