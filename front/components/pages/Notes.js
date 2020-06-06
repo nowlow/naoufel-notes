@@ -41,6 +41,7 @@ class Notes extends React.Component {
     }
 
     async componentDidMount() {
+	console.log('COMPONENT DID MOUNT')
         let articles = await client.query({
         query: gql`
             {
@@ -53,11 +54,20 @@ class Notes extends React.Component {
             }
         `,
         });
-        this.setState({ data: articles.data.getNotes.reverse(), isMounted: true });
+        this.setState({ data: articles.data.getNotes.sort((a, b) => {
+	    a = new Date(a.date)
+	    b = new Date(b.date)
+
+	    return a > b ? -1 : a < b ? 1 : 0 
+	}), isMounted: true });
     }
 
     componentDidCatch(error, errorInfo) {
         console.error(error, errorInfo);
+    }
+
+    componentWillUnmount() {
+	console.log('COMPONENT DID UNMOUNT')
     }
 
     render() {
