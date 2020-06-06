@@ -1,20 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-import { ApolloClient, gql } from "apollo-boost"
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory"
-import { HttpLink } from "apollo-link-http"
+import { gql } from "apollo-boost"
 import config from "../../config"
 import { Redirect } from 'react-router-dom'
-
-const cache = new InMemoryCache();
-const link = new HttpLink({
-    uri: config.apollo_uri
-});
-
-const client = new ApolloClient({
-    cache,
-    link,
-});
+import NotesApollo from '../../apollo'
 
 const Page_ = styled.section`
     width: 100%;
@@ -115,13 +104,13 @@ class NewNote extends React.Component {
     async submit() {
         if (!this.state.title.length && !this.state.content.length)
             return;
-        let mutation = await client.mutate({
+        await NotesApollo().getInstance().mutate({
             mutation: gql`
                 mutation {
                     addNote(title: "${this.state.title}", content: "${this.state.content}") {id}
                 }
             `,
-        })
+        }).subscribe()
 	    this.setState({ title: '', content: '' })
 	    return <Redirect to="/" />
     }

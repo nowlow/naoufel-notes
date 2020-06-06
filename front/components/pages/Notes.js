@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Article from "../../components/pages/Article";
-import { ApolloClient, gql } from "apollo-boost";
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
+import { gql } from "apollo-boost";
 import config from "../../config";
+import NotesApollo from '../../apollo'
 
 const Page_ = styled.section`
     display: flex;
@@ -32,24 +31,24 @@ class Notes extends React.Component {
 
     async componentDidMount() {
 	console.log('COMPONENT DID MOUNT')
-        let articles = await client.query({
+        let articles = await NotesApollo().getInstance().query({
         query: gql`
             {
-            getNotes {
-                id
-                title
-                content
-                date
-            }
+                getNotes {
+                    id
+                    title
+                    content
+                    date
+                }
             }
         `,
         });
         this.setState({ data: articles.data.getNotes.sort((a, b) => {
-	    a = new Date(a.date)
-	    b = new Date(b.date)
+            a = new Date(a.date)
+            b = new Date(b.date)
 
-	    return a > b ? -1 : a < b ? 1 : 0 
-	}), isMounted: true });
+            return a > b ? -1 : a < b ? 1 : 0 
+        }), isMounted: true });
     }
 
     componentDidCatch(error, errorInfo) {
