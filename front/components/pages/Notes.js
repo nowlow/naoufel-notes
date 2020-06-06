@@ -6,16 +6,6 @@ import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import config from "../../config";
 
-const cache = new InMemoryCache();
-const link = new HttpLink({
-    uri: config.apollo_uri
-});
-
-const client = new ApolloClient({
-    cache,
-    link,
-});
-
 const Page_ = styled.section`
     display: flex;
     flex-direction: column;
