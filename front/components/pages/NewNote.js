@@ -43,14 +43,17 @@ const Page_ = styled.section`
 
     form input {
         width: 100%;
-        border: 1px solid rgba(200, 200, 200, 1);;
         padding: 10px;
+        border: none;
+        font-size: 2em;
+        border-bottom: 2px solid rgb(200, 200, 200);
+        font-weight: bold:
     }
 
     form textarea {
         width: 100%;
         height: 250px;
-        border: 1px solid rgba(200, 200, 200, 1);
+        border: none;
         padding: 10px;
         resize: none;
     }
@@ -70,21 +73,25 @@ const Page_ = styled.section`
             align-items: baseline;
         }
 
-        form > *:not(:last-child) {
-            margin-bottom: 40px;
+        form > * {
+            margin-bottom: 0;
         }
 
         form h3 {
-            font-size: 4em;
+            display: none;
         }
 
         form input, form textarea {
-            border: 2px solid rgb(200, 200, 200);
-            font-size: 2em;
+        }
+
+        form input {
+            font-size: 3em;
+            font-weight: bold;
         }
 
         form textarea {
-            height: 50vh;
+            height: 30vh;
+            font-size: 2em;
         }
 
         .submit {
@@ -133,8 +140,8 @@ class NewNote extends React.Component {
             <Page_>
                 <form>
                     <h3>New note</h3>
-                <input type="text" placeholder="Title" value={this.state.title} onChange={(e) => {this.handleTypingTitle(e) }} />
-                <textarea type="text" placeholder="Content" value={this.state.content} onChange={(e) => { this.handleTypingContent(e) }} />
+                    <input type="text" placeholder="Title" value={this.state.title} onChange={(e) => {this.handleTypingTitle(e) }} />
+                    <textarea type="text" placeholder="Content" value={this.state.content} onChange={(e) => { this.handleTypingContent(e) }} />
                     <div className="submit" onClick={() => { this.submit() }}>Submit</div>
                 </form>
             </Page_>
