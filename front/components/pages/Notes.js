@@ -68,7 +68,7 @@ class Notes extends React.Component {
                     this.state.data.map((article) => {
                     return (
                         <Article
-                        key={article.title}
+                        key={article.id}
                         title={article.title}
                         description={article.content}
                         date={article.date}
@@ -81,7 +81,7 @@ class Notes extends React.Component {
                 </Page_>
             );
         } else {
-            return <div>Error</div>;
+            return <Page_></Page_>;
         }
     }
 }

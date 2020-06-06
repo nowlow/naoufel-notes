@@ -5,10 +5,14 @@ const app = express()
 
 app.use(express.static(path.join(__dirname, 'public/')))
 
+app.get('/:anything', (req, res) => {
+    return res.sendFile(path.join(__dirname, 'dist/index.html'))
+})
+
 app.get('/', (req, res) => {
-	return res.sendFile(path.join(__dirname, 'dist/index.html'))
+    return res.sendFile(path.join(__dirname, 'dist/index.html'))
 })
 
 app.listen(5139, () => {
-	console.log('App started on localhost:5139')
+    console.log('App started on localhost:5139')
 })

@@ -4,6 +4,7 @@ import { ApolloClient, gql } from "apollo-boost"
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory"
 import { HttpLink } from "apollo-link-http"
 import config from "../../config"
+import { Redirect } from 'react-router-dom'
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
@@ -123,7 +124,8 @@ class NewNote extends React.Component {
                 }
             `,
         })
-	console.log(mutation)
+	this.setState({ title: '', content: '' })
+	return <Redirect to="/" />
     }
 
     render() {
