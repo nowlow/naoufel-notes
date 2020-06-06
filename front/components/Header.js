@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import responsive from '../responsive'
+import config from '../config'
 
 const Header_ = styled.section`
     width: 100%;
@@ -15,7 +16,14 @@ const Header_ = styled.section`
     padding: 50px;
     box-sizing: border-box;
 
-    h1::before {
+    .title {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.7em;
+    }
+
+    .title::before {
         content: 'NaoufelNotes';
     }
 
@@ -28,11 +36,11 @@ const Header_ = styled.section`
         cursor: pointer;
     }
 
-    @media screen and (max-width: ${responsive.width}px) and (min-height: ${responsive.height}px) {
+    ${config.responsive.query} {
         height: 150px;
         font-size: 3em;
 
-        h1::before {
+        .title::before {
             content: 'NN';
         }
 
@@ -44,8 +52,8 @@ const Header_ = styled.section`
         }
     }
 
-    @media screen and (max-width: ${responsive.width}px) {
-        h1::before {
+    @media screen and (max-width: ${config.responsive.width}px) {
+        .title::before {
             content: 'NN';
         }
     }
@@ -59,8 +67,8 @@ class Header extends React.Component {
     render() {
         return (
             <Header_>
-                <h1 style={{color: 'white'}}></h1>
-                <a href="#" className="new-note">New Note</a>
+                <Link to="/" className="title"></Link>
+                <Link to="/new-note" className="new-note">New Note</Link>
             </Header_>
         )
     }

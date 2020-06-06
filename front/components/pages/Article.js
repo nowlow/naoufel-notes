@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import responsive from '../../responsive'
+import config from '../../config'
 
 const Article_ = styled.section`
 padding: 20px;
@@ -26,7 +26,7 @@ h3 {
     width: 80%;
 }
 
-@media screen and (max-width: ${responsive.width}px) and (min-height: ${responsive.height}px) {
+${config.responsive.query} {
     width: 100%;
     padding: 40px;
     border-radius: 10px;
