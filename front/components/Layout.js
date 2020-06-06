@@ -18,6 +18,9 @@ const Content_ = styled.section`
     min-height: calc(100vh - 100px);
     padding: 50px;
     box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 
     ${config.responsive.query} {
         margin-top: 150px;

@@ -20,88 +20,79 @@ const Page_ = styled.section`
     width: 100%;
     height: 100%;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    > *:not(:last-child) {
+        margin-bottom: 20px;
+    }
 
-    form {
+    .form-box  {
         width: 40%;
         height: 100%;
 
         display: flex;
         flex-direction: column;
-        align-items: center;
+
+        margin: 0 auto;
     }
 
-    form > * {
+    .form-box > * {
         box-sizing: border-box;
     }
 
-    form > *:not(:last-child) {
-        margin-bottom: 20px;
-    }
-
-    form input {
+    input {
         width: 100%;
         padding: 10px;
         border: none;
         font-size: 2em;
         border-bottom: 2px solid rgb(200, 200, 200);
-        font-weight: bold:
+        font-weight: bold;
     }
 
-    form textarea {
+    textarea {
         width: 100%;
-        height: 250px;
+        height: 100%;
         border: none;
         padding: 10px;
         resize: none;
     }
 
     .submit {
-        width: 100%;
+        width: 200px;
+        align-self: end;
         padding: 10px;
         background-color: black;
         color: white;
         text-align: center;
         font-weight: bold;
+        border-radius: 5px;
     }
 
     ${config.responsive.query} {
-        form {
-            width: 100%;
-            align-items: baseline;
-        }
-
-        form > * {
+        > * {
             margin-bottom: 0;
         }
 
-        form h3 {
-            display: none;
+        .form-box {
+            width: 100%;
         }
 
-        form input, form textarea {
-        }
-
-        form input {
+        input {
             font-size: 3em;
             font-weight: bold;
         }
 
-        form textarea {
-            height: 30vh;
+        textarea {
             font-size: 2em;
         }
 
         .submit {
             padding: 40px;
             font-size: 2em;
+            border-radius: 10px;
         }
     }
 
     @media screen and (max-width: ${config.responsive.width}px) {
-        form {
+        .form-box {
             width: 100%;
         }
     }
@@ -131,19 +122,18 @@ class NewNote extends React.Component {
                 }
             `,
         })
-	this.setState({ title: '', content: '' })
-	return <Redirect to="/" />
+	    this.setState({ title: '', content: '' })
+	    return <Redirect to="/" />
     }
 
     render() {
         return (
             <Page_>
-                <form>
-                    <h3>New note</h3>
+                <div className="form-box">
                     <input type="text" placeholder="Title" value={this.state.title} onChange={(e) => {this.handleTypingTitle(e) }} />
                     <textarea type="text" placeholder="Content" value={this.state.content} onChange={(e) => { this.handleTypingContent(e) }} />
                     <div className="submit" onClick={() => { this.submit() }}>Submit</div>
-                </form>
+                </div>
             </Page_>
         );
     }
