@@ -110,7 +110,7 @@ class NewNote extends React.Component {
                     addNote(title: "${this.state.title}", content: "${this.state.content}") {id}
                 }
             `,
-        }).subscribe()
+        })
 	    this.setState({ title: '', content: '' })
 	    return <Redirect to="/" />
     }
