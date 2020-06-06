@@ -116,13 +116,14 @@ class NewNote extends React.Component {
     async submit() {
         if (!this.state.title.length && !this.state.content.length)
             return;
-        await client.mutate({
+        let mutation = await client.mutate({
             mutation: gql`
-                {
-                    addNote(title: ${this.state.title}, content: ${this.state.content}) {id}
+                mutation {
+                    addNote(title: "${this.state.title}", content: "${this.state.content}") {id}
                 }
             `,
         })
+	console.log(mutation)
     }
 
     render() {
@@ -130,8 +131,8 @@ class NewNote extends React.Component {
             <Page_>
                 <form>
                     <h3>New note</h3>
-                    <input type="text" placeholder="Title" value={this.state.title} onChange={this.handleTypingTitle} />
-                    <textarea type="text" placeholder="Content" value={this.state.content} onChange={this.handleTypingContent} />
+                <input type="text" placeholder="Title" value={this.state.title} onChange={(e) => {this.handleTypingTitle(e) }} />
+                <textarea type="text" placeholder="Content" value={this.state.content} onChange={(e) => { this.handleTypingContent(e) }} />
                     <div className="submit" onClick={() => { this.submit() }}>Submit</div>
                 </form>
             </Page_>
