@@ -3,7 +3,8 @@ import styled from "styled-components"
 import { gql } from "apollo-boost"
 import config from "../../config"
 import { Redirect } from 'react-router-dom'
-import NotesApollo from '../../apollo'
+import NotesApollo from '../../NotesApollo'
+import NotesSocket from '../../NotesSocket'
 
 const Page_ = styled.section`
     width: 100%;
@@ -98,7 +99,7 @@ class NewNote extends React.Component {
     }
 
     componentDidMount() {
-	document.title = 'New note - Naoufel\'s notes'
+	    document.title = 'New note - Naoufel\'s notes'
     }
 
     handleTypingTitle(event) {
@@ -112,7 +113,7 @@ class NewNote extends React.Component {
     async submit() {
         if (!this.state.title.length || !this.state.content.length)
             return;
-        await NotesApollo().getInstance().mutate({
+        await NotesApollo().getInstance().client.mutate({
             mutation: gql`
                 mutation {
                     addNote(title: "${this.state.title.split('"').join('\\"')}", content: "${this.state.content.split('"').join('\\"')}") {id}

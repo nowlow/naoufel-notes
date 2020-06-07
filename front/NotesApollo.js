@@ -10,11 +10,14 @@ let NotesApollo = (function() {
         getInstance: () => {
             if (instance !== null)
                 return instance
-
             const cache = new InMemoryCache()
-            const link = new HttpLink({ uri: config.apollo_uri })
+            const link = new HttpLink({ uri: config.back_uri })
 
-            instance = new ApolloClient({ cache, link })
+            instance = {
+                cache: cache,
+                link: link,
+                client: new ApolloClient({ cache, link })
+            }
             return instance
         }
     }

@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Article from "../../components/pages/Article";
 import { gql } from "apollo-boost";
 import config from "../../config";
-import NotesApollo from '../../apollo'
+import NotesApollo from '../../NotesApollo'
+import NotesSocket from '../../NotesSocket'
 
 const Page_ = styled.section`
     display: flex;
@@ -23,6 +24,8 @@ const Page_ = styled.section`
     }
 `;
 
+NotesSocket().getInstance()
+
 class Notes extends React.Component {
     constructor() {
         super();
@@ -30,10 +33,10 @@ class Notes extends React.Component {
     }
 
     async componentDidMount() {
-	console.log('COMPONENT DID MOUNT')
-	document.title = 'Naoufel\'s notes'
+	    console.log('COMPONENT DID MOUNT')
+	    document.title = 'Naoufel\'s notes'
 	
-        let articles = await NotesApollo().getInstance().query({
+        let articles = await NotesApollo().getInstance().client.query({
         query: gql`
             {
                 getNotes {
@@ -58,7 +61,7 @@ class Notes extends React.Component {
     }
 
     componentWillUnmount() {
-	console.log('COMPONENT DID UNMOUNT')
+	    console.log('COMPONENT DID UNMOUNT')
     }
 
     render() {
@@ -69,11 +72,11 @@ class Notes extends React.Component {
                     this.state.data.map((article) => {
                     return (
                         <Article
-                        key={article.id}
-                        title={article.title}
-                        description={article.content}
-                        date={article.date}
-                        ></Article>
+                            key={article.id}
+                            title={article.title}
+                            description={article.content}
+                            date={article.date}
+                        />
                     );
                     })
                 ) : (

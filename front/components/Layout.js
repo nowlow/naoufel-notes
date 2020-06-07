@@ -45,22 +45,20 @@ class Layout extends React.Component {
         return (
             <Router>
                 <div style={{ width: '100%', height: '100%' }}>
-                    <Header />    
-                    <Switch>
-                        <Route path="/" exact>
-                            <Content_>
+                    <Header />
+                    <Content_>
+                        <Switch>
+                            <Route path="/" exact>
                                 <Notes />
-                            </Content_>
-                        </Route>
+                            </Route>
 
-                        <Route path="/new-note">
-                            <Content_>
+                            <Route path="/new-note">
                                 <NewNote />
-                            </Content_>
-                        </Route>
+                            </Route>
 
-                        <Route children={<Content_><Unknown></Unknown></Content_>} />
-                    </Switch>
+                            <Route children={<Unknown />} />
+                        </Switch>
+                    </Content_>
                 </div>
             </Router>
         )

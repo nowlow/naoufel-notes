@@ -23,7 +23,7 @@ model Comment {
 model Note {
   id        Int @id @default(autoincrement())
   title     String
-  content   String
+  content   JSON
   date      DateTime @default(now())
   comments  Comment[]
 }
