@@ -7,22 +7,18 @@ const socketio = require('socket.io')
 
 const app = express()
 let server = http.createServer(app)
-let io = socketio(server, {
-    handlePreflightRequest: (req, res) => {
-        const headers = {
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
-            "Access-Control-Allow-Credentials": true
-        };
-        res.writeHead(200, headers);
-        res.end();
-    }
+let io = socketio.listen(server, {
+    log: false,
+    agent: false,
+    origins: 'https://mabite.com',
+    transports: ['websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling', 'polling']
 })
 const appoloserver = new ApolloServer({ schema, context: createContext })
 
 appoloserver.applyMiddleware({
     app,
-    path: '/'
+    path: '/',
+    cors: false
 })
 
 io.on('connection', () => {

@@ -1,0 +1,99 @@
+#!/bin/bash
+
+function app_info()
+{
+    export APP_NAME=$1
+
+    echo -e "Deploying \e[1m$1\e[0m:"
+}
+
+function success() {
+    echo -e "\t\e[1m\e[32m>\e[0m $1"
+}
+
+function error() {
+    echo -e "\t\e[1m\e[31m>\e[0m $1 (exit status: $2)"
+}
+
+function info() {
+    echo -e "\t\e[1m>\e[0m $1"
+}
+
+function warning() {
+    echo -e "\t\e[1m\e[33m>\e[0m $1"
+}
+
+function change_dir() {
+    cd $1 > /dev/null
+
+    local ret=$?
+    if [ $ret -eq 0 ]; then
+	success "Changed directory to \e[1m$1\e[0m"
+    else
+        error "Failed to change directory to \e[1m$1\e[0m" $ret
+    fi
+}
+
+function execute_command() {
+    info "Executing \e[1m$1\e[0m ..."
+
+    eval $1
+
+    local ret=$?
+    if [ $ret -eq 0 ]; then
+	success "Command execution OK"
+    else
+	error "Command execution failed" $ret
+    fi
+}
+
+function kill_last() {
+    local pid=`cat $APP_NAME.pid 2> /dev/null`
+
+    if ! kill $pid > /dev/null 2>&1; then
+        info "Application wasn't started"
+    else
+        warning "Application was started"
+    fi
+}
+
+function launch_app() {
+    kill_last
+
+    info "Launching \e[1m$APP_NAME\e[0m"
+
+    change_dir $APP_NAME
+    nohup $@ > ../$APP_NAME.log 2>&1 &
+    export LAST_PID=$!
+    change_dir "-"
+
+    echo $LAST_PID > $APP_NAME.pid
+    local ret=$?
+    if [ $ret -eq 0 ]; then
+	success "Launched \e[1m$APP_NAME\e[0m successfully"
+    else
+	error "Error while launching \e[1m$APP_NAME\e[0m" $ret
+    fi
+}
+
+if [[ $* == *"--front"* ]] || [[ $* == *"--all"* ]] || [ $# -eq 0 ]; then
+    app_info "front"
+
+    change_dir "front"
+    execute_command "npm install > /dev/null 2>&1"
+    execute_command "npm run-script build > /dev/null 2>&1"
+    execute_command "mv dist/bundle.js public/ > /dev/null 2>&1"
+    change_dir "-"
+
+    launch_app node server.js
+fi
+
+if [[ $* == *"--back"* ]] || [[ $* == *"--all"* ]] || [ $# -eq 0 ]; then
+    app_info "back"
+
+    change_dir "back"
+    execute_command "npm install > /dev/null 2>&1"
+    change_dir "-"
+
+    launch_app npm start
+fi

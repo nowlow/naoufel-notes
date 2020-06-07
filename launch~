@@ -1,0 +1,83 @@
+#!/bin/bash
+
+function app_info()
+{
+    export APP_NAME=$1
+
+    echo -e "Deploying \e[1m$1\e[0m:"
+}
+
+function change_dir() {
+    cd $1 > /dev/null
+
+    local ret=$?
+    if [ $ret -eq 0 ]; then
+	echo -e "\t\e[1m\e[32m>\e[0m Changed directory to \e[1m$1\e[0m."
+    else
+	echo -e "\t\e[1m\e[31m>\e[0m Failed to change directory to \e[1m$1\e[0m (exit status: $ret)."
+    fi
+}
+
+function execute_command() {
+    echo -e "\t\e[1m>\e[0m Executing \e[1m$1\e[0m ..."
+
+    eval $1
+
+    local ret=$?
+    if [ $ret -eq 0 ]; then
+	echo -e "\t\e[1m\e[32m>\e[0m Command execution OK."
+    else
+	echo -e "\t\e[1m\e[31m>\e[0m Command execution failed (exit status: $ret)."
+    fi
+}
+
+function kill_last() {
+    local pid=`cat $APP_NAME.pid 2> /dev/null`
+
+    if ! kill $pid > /dev/null 2>&1; then
+        echo -e "\t\e[1m>\e[0m Application wasn't started."
+    else
+        echo -e "\t\e[1m>\e[0m Application was started."
+    fi
+}
+
+function launch_app() {
+    kill_last
+
+    echo -e "\t\e[1m>\e[0m Launching \e[1m$APP_NAME\e[0m."
+    
+    change_dir $APP_NAME
+    nohup $@ > ../$APP_NAME.log 2>&1 &
+    export LAST_PID=$!
+    change_dir "-"
+
+    echo $LAST_PID > $APP_NAME.pid
+    local ret=$?
+    if [ $ret -eq 0 ]; then
+	echo -e "\t\e[1m\e[32m>\e[0m Launched \e[1m$APP_NAME\e[0m successfully."
+    else
+	echo -e "\t\e[1m\e[31m>\e[0m Error while launching \e[1m$APP_NAME\e[0m (exit status: $ret)."
+    fi
+}
+
+if [[ $* == *"--front"* ]] || [[ $* == *"--all"* ]] || [ $# -eq 0 ]; then
+    app_info "front"
+
+    change_dir "front"
+    execute_command "npm install > /dev/null 2>&1"
+    execute_command "npm run-script build > /dev/null 2>&1"
+    execute_command "mv dist/bundle.js public/ > /dev/null 2>&1"
+    change_dir "-"
+
+    launch_app node server.js
+fi
+
+if [[ $* == *"--back"* ]] || [[ $* == *"--all"* ]] || [ $# -eq 0 ]; then
+    app_info "back"
+
+    change_dir "back"
+    execute_command "npm install > /dev/null 2>&1"
+    change_dir "-"
+
+    launch_app npm start
+fi

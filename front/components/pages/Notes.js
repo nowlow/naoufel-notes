@@ -24,8 +24,6 @@ const Page_ = styled.section`
     }
 `;
 
-NotesSocket().getInstance()
-
 class Notes extends React.Component {
     constructor() {
         super();
@@ -33,6 +31,7 @@ class Notes extends React.Component {
     }
 
     async componentDidMount() {
+	NotesSocket().getInstance()
 	    console.log('COMPONENT DID MOUNT')
 	    document.title = 'Naoufel\'s notes'
 	
