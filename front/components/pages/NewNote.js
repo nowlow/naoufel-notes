@@ -55,6 +55,8 @@ const Page_ = styled.section`
         text-align: center;
         font-weight: bold;
         border-radius: 5px;
+        cursor: pointer;
+        user-select: none;
     }
 
     ${config.responsive.query} {
@@ -108,12 +110,12 @@ class NewNote extends React.Component {
     }
 
     async submit() {
-        if (!this.state.title.length && !this.state.content.length)
+        if (!this.state.title.length || !this.state.content.length)
             return;
         await NotesApollo().getInstance().mutate({
             mutation: gql`
                 mutation {
-                    addNote(title: "${this.state.title}", content: "${this.state.content.split('"').join('\\"')}") {id}
+                    addNote(title: "${this.state.title.split('"').join('\\"')}", content: "${this.state.content.split('"').join('\\"')}") {id}
                 }
             `,
         })

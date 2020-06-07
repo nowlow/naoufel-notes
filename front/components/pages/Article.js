@@ -8,6 +8,7 @@ border: 1px solid rgba(200, 200, 200, 1);
 border-radius: 5px;
 width: 40%;
 box-sizing: border-box;
+word-break: break-word;
 
 transition: width .2s ease-in-out;
 
