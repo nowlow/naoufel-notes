@@ -45,7 +45,7 @@ const Query = objectType({
         type: 'Note',
 	args: {
 	    id: arg({
-		type: 'Int'
+		    type: 'Int'
 	    })
 	},
         async resolve(parent, { id }, ctx) {

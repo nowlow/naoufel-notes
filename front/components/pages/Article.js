@@ -55,6 +55,25 @@ const Article_ = styled.section`
             width: 40px;
             line-height: 40px;
         }
+
+        .title {
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 2.2em;
+        }
+
+        .date {
+            font-size: 2em;
+            margin-top: 30px;
+        }
+    }
+
+    @media screen and (max-width: ${config.responsive.width}px) {
+        width: 95vw;
+        height: 95vh;
     }
 `
 
