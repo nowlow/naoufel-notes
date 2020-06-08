@@ -43,6 +43,11 @@ const Query = objectType({
 
     t.field('getNote', {
         type: 'Note',
+	args: {
+	    id: arg({
+		type: 'Int'
+	    })
+	},
         async resolve(parent, { id }, ctx) {
             return await prisma.note.findOne({ where: { id: id } })
         },

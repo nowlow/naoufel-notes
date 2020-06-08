@@ -71,7 +71,7 @@ class Article extends React.Component {
         this.setState({
             isMounted: true,
             id: id,
-            data: await NotesApollo().getInstance().client.query({
+            data: (await NotesApollo().getInstance().client.query({
                 query: gql`
                     {
                         getNote(id: ${id}) {
@@ -88,13 +88,17 @@ class Article extends React.Component {
                         }
                     }
                 `
-            })
+            })).data
         })
         console.log(this.state.data)
     }
 
     componentDidCatch(e) {
 	    console.error(e)
+    }
+
+    getFormatedDate(date) {
+        return (date.getUTCDay() + '/' + date.getMonth() + '/' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes() )
     }
 
     render() {
@@ -104,7 +108,9 @@ class Article extends React.Component {
                     <Link to="/" className="cover"></Link>
                     <Article_>
                         <Link to="/" className="leave">×</Link>
-                        <h3>{this.state.id}</h3>
+                        <h3 className="title">{this.state.data.getNote.title}</h3>
+                        <p>{this.state.data.getNote.content}</p>
+                        <div className="date">{this.getFormatedDate(new Date(this.state.data.getNote.date))}</div>
                     </Article_>
                 </Cover_>
             )

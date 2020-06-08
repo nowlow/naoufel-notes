@@ -68,6 +68,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getComments: NexusGenRootTypes['Comment'][]; // [Comment!]!
+    getNote: NexusGenRootTypes['Note']; // Note!
     getNotes: NexusGenRootTypes['Note'][]; // [Note!]!
   }
 }
@@ -86,6 +87,9 @@ export interface NexusGenArgTypes {
   Query: {
     getComments: { // args
       note_id?: number | null; // Int
+    }
+    getNote: { // args
+      id?: number | null; // Int
     }
   }
 }

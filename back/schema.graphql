@@ -27,5 +27,6 @@ type Note {
 
 type Query {
   getComments(note_id: Int): [Comment!]!
+  getNote(id: Int): Note!
   getNotes: [Note!]!
 }
