@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // the output bundle won't be optimized for production but suitable for development
-  mode: 'development',
+  mode: 'production',
   // the app entry point is /src/index.js
   entry: path.resolve(__dirname, 'views', 'index.jsx'),
   output: {
@@ -29,5 +29,8 @@ module.exports = {
     ]
   },
   // add a custom index.html as the template
-  plugins: [new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'app.html') })]
+  plugins: [new HtmlWebpackPlugin({ 
+      publicPath: '/',
+      template: path.resolve(__dirname, 'app.html')
+  })]
 }

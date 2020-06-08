@@ -41,6 +41,14 @@ class Unknown extends React.Component {
     }
 }
 
+function Art() {
+    return (
+	    <div>
+	    coucou
+	    </div>
+    )
+}
+
 class Layout extends React.Component {
     render() {
         return (
@@ -59,8 +67,9 @@ class Layout extends React.Component {
 
                             <Route path="/article">
                                 <Notes />
-                                <Article></Article>
+		                <Article />
                             </Route>
+
 
                             <Route children={<Unknown />} />
                         </Switch>

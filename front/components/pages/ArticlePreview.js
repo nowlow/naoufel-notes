@@ -61,7 +61,7 @@ class ArticlePreview extends React.Component {
         this.state = { isMounted: false, date: null }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setState({ date: new Date(this.props.date), isMounted: true })
     }
 
@@ -77,7 +77,7 @@ class ArticlePreview extends React.Component {
         if (this.state.isMounted) {
             return (
                 <ArticlePreview_>
-                    <Link to={location => `/article/${this.props.id}`} className="title">{this.props.title}</Link>
+                    <Link to={location => `/article?id=${this.props.id}`} className="title">{this.props.title}</Link>
                     <p>{this.props.description}</p>
                     <div className="date">{ this.getFormatedDate() }</div>
                 </ArticlePreview_>

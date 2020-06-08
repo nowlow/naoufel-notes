@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import config from '../../config'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const Article_ = styled.section`
     position: fixed;
@@ -19,16 +19,33 @@ const Article_ = styled.section`
         font-weight: bold;
         font-size: 30px;
         text-decoration: none;
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        line-height: 20px;
         display: block;
     }
 `
 
 class Article extends React.Component {
+    constructor() {
+	super()
+	this.state = { id: -1 }
+    }
+
+    componentDidMount() {
+	let params = new URLSearchParams(window.location.search)
+	let id = params.get('id')
+
+	this.setState({ id: id })
+    }
+
+    componentDidCatch(e) {
+	console.error(e)
+    }
+
     render() {
         return <Article_>
             <Link to="/" className="leave">×</Link>
+	    <h3>{this.state.id}</h3>
         </Article_>
     }
 }
