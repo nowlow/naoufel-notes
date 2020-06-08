@@ -41,6 +41,13 @@ const Query = objectType({
         },
     })
 
+    t.field('getNote', {
+        type: 'Note',
+        async resolve(parent, { id }, ctx) {
+            return await prisma.note.findOne({ where: { id: id } })
+        },
+    })
+
     t.list.field('getComments', {
         type: 'Comment',
         args: {
