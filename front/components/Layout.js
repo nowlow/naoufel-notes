@@ -56,6 +56,11 @@ class Layout extends React.Component {
                                 <NewNote />
                             </Route>
 
+	                    <Route path="/article/:id">
+		                <Notes />
+		                <div>coucou</div>
+		            </Route>
+
                             <Route children={<Unknown />} />
                         </Switch>
                     </Content_>

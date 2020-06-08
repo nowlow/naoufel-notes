@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import config from '../../config'
+import { Link } from 'react-router-dom'
 
 const Article_ = styled.section`
 padding: 20px;
@@ -12,9 +13,11 @@ word-break: break-word;
 
 transition: width .2s ease-in-out;
 
-h3 {
+.title {
     font-weight: bold;
     margin-bottom: 10px;
+    text-decoration: none;
+    color: black;
 }
 
 .date {
@@ -32,7 +35,7 @@ ${config.responsive.query} {
     padding: 40px;
     border-radius: 10px;
 
-    h3 {
+    .title {
         font-size: 3em;
         margin-bottom: 30px;
     }
@@ -74,7 +77,7 @@ class Article extends React.Component {
         if (this.state.isMounted) {
             return (
                 <Article_>
-                    <h3>{this.props.title}</h3>
+                    <Link to={location => `/article/${this.props.id}`} className="title">{this.props.title}</Link>
                     <p>{this.props.description}</p>
                     <div className="date">{ this.getFormatedDate() }</div>
                 </Article_>

@@ -1,0 +1,17 @@
+if  arg_exists "--front" || arg_exists "--all" || [ $argc -eq 0 ]; then
+    app_info "front"
+
+    cmd npm install
+    cmd npm run-script build
+    cmd mv dist/bundle.js public/
+
+    launch_app node server.js
+fi
+
+if arg_exists "--back" || arg_exists "--all" || [ $argc -eq 0 ]; then
+    app_info "back"
+
+    cmd npm install
+
+    launch_app npm start
+fi

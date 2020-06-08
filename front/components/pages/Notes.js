@@ -31,8 +31,6 @@ class Notes extends React.Component {
     }
 
     async componentDidMount() {
-	NotesSocket().getInstance()
-	    console.log('COMPONENT DID MOUNT')
 	    document.title = 'Naoufel\'s notes'
 	
         let articles = await NotesApollo().getInstance().client.query({
@@ -59,10 +57,6 @@ class Notes extends React.Component {
         console.error(error, errorInfo);
     }
 
-    componentWillUnmount() {
-	    console.log('COMPONENT DID UNMOUNT')
-    }
-
     render() {
         if (this.state.isMounted) {
             return (
@@ -72,6 +66,7 @@ class Notes extends React.Component {
                     return (
                         <Article
                             key={article.id}
+			    id={article.id}
                             title={article.title}
                             description={article.content}
                             date={article.date}
