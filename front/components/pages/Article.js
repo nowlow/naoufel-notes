@@ -110,11 +110,11 @@ class Article extends React.Component {
             })).data
         })
         console.log(this.state.data)
-        document.body.style.overload = 'hidden'
+        document.body.style.overflow = 'hidden'
     }
 
     componentWillUnmount() {
-        document.body.style.overload = 'unset'
+        document.body.style.overflow = 'unset'
     }
 
     componentDidCatch(e) {

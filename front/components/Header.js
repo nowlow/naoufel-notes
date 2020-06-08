@@ -67,7 +67,7 @@ class Header extends React.Component {
     render() {
         return (
             <Header_>
-                <Link to="/article?id=10" className="title"></Link>
+                <Link to="/" className="title"></Link>
                 <Link to="/new-note" className="new-note">New Note</Link>
             </Header_>
         )
