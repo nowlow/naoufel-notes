@@ -6,11 +6,11 @@ import NotesApollo from '../../NotesApollo'
 import { gql } from "apollo-boost"
 
 const Cover_ = styled.section`
-position: absolute;
+position: fixed;
 top: 0;
 left: 0;
-width: 100vw;
-height: 100vh;
+width: 100%;
+height: 100%;
 background-color: rgba(0, 0, 0, 0.5);
 
 .cover {
@@ -110,6 +110,11 @@ class Article extends React.Component {
             })).data
         })
         console.log(this.state.data)
+        document.body.style.overload = 'hidden'
+    }
+
+    componentWillUnmount() {
+        document.body.style.overload = 'unset'
     }
 
     componentDidCatch(e) {
