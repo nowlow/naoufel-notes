@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import config from '../../config'
 import { Link, useParams } from 'react-router-dom'
 import NotesApollo from '../../NotesApollo'
+import { gql } from "apollo-boost"
 
 const Cover_ = styled.section`
 position: absolute;
