@@ -3,6 +3,22 @@ import styled from 'styled-components'
 import config from '../../config'
 import { Link, useParams } from 'react-router-dom'
 
+const Cover_ = styled.section`
+position: absolute;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background-color: rgba(0, 0, 0, 0.5);
+
+.cover {
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+`
+
 const Article_ = styled.section`
     position: fixed;
     width: 50vw;
@@ -13,6 +29,7 @@ const Article_ = styled.section`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 5px;
 
     .leave {
         color: rgba(200, 200, 200, 1);
@@ -43,10 +60,15 @@ class Article extends React.Component {
     }
 
     render() {
-        return <Article_>
-            <Link to="/" className="leave">×</Link>
-	    <h3>{this.state.id}</h3>
-        </Article_>
+        return (
+	<Cover_>
+	    <Link to="/" className="cover"></Link>
+	    <Article_>
+		<Link to="/" className="leave">×</Link>
+		<h3>{this.state.id}</h3>
+            </Article_>
+	</Cover_>
+	)
     }
 }
 
