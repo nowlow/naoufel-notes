@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Header from '../components/Header'
 import config from '../config'
 import Notes from '../components/pages/Notes'
+import Article from '../components/pages/Article'
 import NewNote from '../components/pages/NewNote'
 import {
     BrowserRouter as Router,
@@ -56,10 +57,10 @@ class Layout extends React.Component {
                                 <NewNote />
                             </Route>
 
-	                    <Route path="/article/:id">
-		                <Notes />
-		                <div>coucou</div>
-		            </Route>
+                            <Route path="/article">
+                                <Notes />
+                                <Article></Article>
+                            </Route>
 
                             <Route children={<Unknown />} />
                         </Switch>

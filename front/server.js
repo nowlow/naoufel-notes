@@ -5,11 +5,7 @@ const app = express()
 
 app.use(express.static(path.join(__dirname, 'public/')))
 
-app.get('/:anything', (req, res) => {
-    return res.sendFile(path.join(__dirname, 'dist/index.html'))
-})
-
-app.get('/', (req, res) => {
+app.use((req, res) => {
     return res.sendFile(path.join(__dirname, 'dist/index.html'))
 })
 

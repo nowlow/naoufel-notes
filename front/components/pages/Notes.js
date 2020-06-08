@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import Article from "../../components/pages/Article";
-import { gql } from "apollo-boost";
-import config from "../../config";
+import React from "react"
+import styled from "styled-components"
+import ArticlePreview from "../../components/pages/ArticlePreview"
+import { gql } from "apollo-boost"
+import config from "../../config"
 import NotesApollo from '../../NotesApollo'
 import NotesSocket from '../../NotesSocket'
 
@@ -64,9 +64,9 @@ class Notes extends React.Component {
                 {this.state.data.length ? (
                     this.state.data.map((article) => {
                     return (
-                        <Article
+                        <ArticlePreview
                             key={article.id}
-			    id={article.id}
+			                id={article.id}
                             title={article.title}
                             description={article.content}
                             date={article.date}
