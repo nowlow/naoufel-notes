@@ -63,7 +63,7 @@ class Article extends React.Component {
         this.state = { id: -1, data: {}, isMounted: false }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         let params = new URLSearchParams(window.location.search)
         let id = params.get('id')
 
